@@ -23,6 +23,9 @@ Performance is evaluated based on total revenue, price fairness, and responsiven
 | **Geospatial Logic**        | [Geopy](https://geopy.readthedocs.io/) for calculating distance between parking lots |
 | **Development Environment** | Google Colab, GitHub                                                                 |
 
+![image](https://github.com/user-attachments/assets/db9bd0f6-5d9e-40be-acdf-6670a8b6ef31)
+
+
 #  Project Architecture and Workflow
 The project simulates a dynamic pricing system for urban parking using real-time demand signals, competitive positioning, and pricing rules. Here's how the entire pipeline flows:
 
