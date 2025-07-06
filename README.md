@@ -101,3 +101,22 @@ Comparative price trendlines for all models
 
 All plots are saved as a PDF document and added to the repo.
 
+# Results
+The performance of the three pricing models was evaluated based on total revenue and competitive pricing behavior.
+
+| Model                                    | Description                      | Total Revenue (₹) |
+| ---------------------------------------- | -------------------------------- | ----------------- |
+| **Model 1: Linear Pricing**              | Baseline, demand-independent     | ₹9,429,079        |
+| **Model 2: Demand-Based Pricing**        | Responsive to occupancy & demand | ₹10,650,048       |
+| **Model 3: Competitive Pricing (Final)** | Demand + competitor-aware        | ₹10,649,467       |
+
+## Competitive Behavior Metrics (Model 3)
+
+| Metric                                         | Value          |
+| ---------------------------------------------- | -------------- |
+| 🔻 **Undercut competitors in**                 | 14.8% of cases |
+| 🔺 **Overpriced vs competitors in**            | 47.3% of cases |
+| 🔥 **Smart price hikes during high demand**    | 74 instances   |
+| 💸 **Revenue difference (Model 3 vs Model 2)** | ₹581 less      |
+
+Model 3 provides a realistic, competition-aware pricing approach with minimal revenue trade-off compared to pure demand-based pricing.
