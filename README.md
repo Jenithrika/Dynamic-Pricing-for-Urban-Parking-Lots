@@ -23,4 +23,81 @@ Performance is evaluated based on total revenue, price fairness, and responsiven
 | **Geospatial Logic**        | [Geopy](https://geopy.readthedocs.io/) for calculating distance between parking lots |
 | **Development Environment** | Google Colab, GitHub                                                                 |
 
-<pre><code>```mermaid flowchart TD A[Pathway Data Stream] --> B[Base DataFrame<br/>(Prices, Timestamps, Occupancy, Location)] B --> C1[Model 1:<br/>Linear Pricing] B --> C2[Model 2:<br/>Demand-Based Pricing] B --> C3[Model 3:<br/>Competitive Pricing] subgraph Pricing Models C1 --> D1[Linear Prices] C2 --> D2[Demand-Based Prices] C3 --> D3[Competitor-Aware Prices] end B --> E[Competitor Identification<br/>(within 1 km)] E --> C3 D1 --> F[Revenue Evaluation] D2 --> F D3 --> F F --> G[Bokeh Plots & Visual Reports] ```</code></pre>
+#  Project Architecture and Workflow
+The project simulates a dynamic pricing system for urban parking using real-time demand signals, competitive positioning, and pricing rules. Here's how the entire pipeline flows:
+
+## 1. Data Ingestion and Preprocessing
+Input Source: Live or simulated real-time data stream from Pathway (model2_window).
+
+Features: Includes SystemCodeNumber, price, occupancy, capacity, timestamp, latitude, longitude, and derived norm_demand.
+
+Preprocessing:
+
+Timestamps are parsed.
+
+Dates are extracted.
+
+Static location data is merged.
+
+Unique sorted dates are used to build a map of previous dates (for lagged logic).
+
+## 2. Model 1 – Linear Pricing
+A simple benchmark model using a linear pricing formula.
+
+Prices are computed based on fixed multipliers on demand.
+
+## 3. Model 2 – Demand-Based Pricing
+Incorporates real-time occupancy-to-capacity ratio and norm_demand.
+
+Prices increase with high demand and decrease when demand is low.
+
+Enforces a price floor and cap to keep prices realistic.
+
+## 4. Model 3 – Competitive Pricing Model
+Location intelligence is used to determine nearby competitors (within 1 km radius).
+
+Uses previous day's competitor prices as a proxy for market rates.
+
+Adjusts pricing using clear business rules:
+
+If the lot is full and competitors are cheaper → reduce price slightly.
+
+If demand is high and competitors are expensive → raise price moderately.
+
+In low-demand zones, avoid overpricing.
+
+Neutral price band prevents overreaction to small fluctuations.
+
+## 5. Price Adjustment Logic
+Final prices are adjusted in Adjusted_Price based on:
+
+Occupancy conditions
+
+Competitive undercut/overpricing scenarios
+
+Market responsiveness
+
+A safeguard ensures prices stay between ₹10 and ₹20
+
+## 6. Evaluation
+All models are compared based on:
+
+Total Revenue generation
+
+% of time the model undercut competitors
+
+% of time the model was overpriced
+
+Smart pricing opportunities captured
+
+Model 3 performs nearly as well as Model 2 in terms of revenue but offers better business realism and market adaptiveness.
+
+## 7. Visualization
+Visualisations created using Bokeh:
+
+Time-series plots of adjusted prices across lots
+
+Comparative price trendlines for all models
+
+All plots are saved as a PDF document and added to the repo.
+
